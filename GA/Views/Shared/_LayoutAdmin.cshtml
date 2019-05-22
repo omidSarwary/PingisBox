@@ -1,0 +1,288 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>@ViewData["Title"] PingisBox</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap core CSS     -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Animation library for notifications   -->
+    <link href="~/assets/css/animate.min.css" rel="stylesheet" />
+    <!--  Paper Dashboard core CSS    -->
+    <link href="~/assets/css/paper-dashboard.css" rel="stylesheet" />
+
+
+    <!--  Fonts and icons     -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/themify-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="~/sweetAlert/sweetalert.css" rel="stylesheet" />
+    <script src="~/sweetAlert/sweetalert.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/signalr.js" type="text/javascript"></script>
+    <script src="~/js/admin.js" type="text/javascript"></script>
+
+    <style>
+        .NotiTime {
+            float: right;
+            padding: 20px 0px 0px 20px;
+        }
+
+        .Notia {
+            padding: 10px 30px 50px 30px !important;
+        }
+
+        #notices {
+            max-height: 80vh;
+            overflow-y: scroll;
+        }
+
+
+        .badgee:after {
+            content: " ";
+            position: absolute;
+            background: #eb5e28;
+            height: 1rem;
+            top: -0.7rem;
+            right: -0.6rem;
+            width: 1rem;
+            /* text-align: center; */
+            /* line-height: 2rem; */
+            /* font-size: 1rem; */
+            border-radius: 50%
+        }
+
+        .bar {
+            border-color: #817D78;
+            width: 80%;
+        }
+
+        .Notihr {
+            border-color: #DED8D2;
+            width: 100%;
+            margin: 0;
+        }
+
+        #chart1{
+            margin-top:50px;
+        }
+    </style>
+
+
+
+</head>
+
+<body id="body">
+
+    @Html.Partial("_NotificationPanel")
+
+    <div class="wrapper">
+        <div class="sidebar off-canvas-sidebar" data-background-color="white" data-active-color="danger">
+
+            <!--
+                Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+                Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+            -->
+
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a asp-action="Index" asp-controller="HJKSAHadwadw" class="simple-text">
+                       <img src="~/images/Logo.png" style="    height: 35px;  width: auto;">
+                    </a>
+                </div>
+                <ul class="nav" id="myDIV">
+                    @*Add sidebar items here*@
+
+                    <li class="@(ViewBag.asd == "Admin" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="HJKSAHadwadw"><i class="fas fa-sliders-h"></i><p>Dashboard</p></a>
+                    </li>
+                    <li class="@(ViewBag.asd == "Notifications" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="Notifications"><i class="fas fa-bell"></i><p>Notifications</p></a>
+                    </li>
+                    <li class="@(ViewBag.asd == "StudentsList" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="StudentsList"><i class="fas fa-users"></i><p>Users</p></a>
+                    </li>
+                    <li class="@(ViewBag.asd == "ItemsList" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="ItemsList"><i class="fas fa-table-tennis"></i><p>Rackets</p></a>
+                    </li>
+                    <hr class="bar">
+                    <li class="@(ViewBag.asd == "BoxLogs" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="BoxLogs"><i class="fas fa-clipboard-list"></i><p>Box Logs</p></a>
+                    </li>
+                    <li class="@(ViewBag.asd == "ItemLogs" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="ItemLogs"><i class="fas fa-clipboard-list"></i><p>Rackets Logs</p></a>
+                    </li>
+                    <li class="@(ViewBag.asd == "StudentLogs" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="StudentLogs"><i class="fas fa-clipboard-list"></i><p>User Logs</p></a>
+                    </li>
+                    <hr class="bar">
+                    <li class="@(ViewBag.asd == "Statistics" ? "active" : "")">
+                        <a asp-action="Index" asp-controller="Graphs"><i class="fas fa-clipboard-list"></i><p>Statistics</p></a>
+                    </li>
+                    <li>
+                        <a href="/BackgroundTasks"><i class="fas fa-clipboard-list"></i><p>Tasks</p></a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar bar1"></span>
+                            <span class="icon-bar bar2"></span>
+                            <span class="icon-bar bar3"></span>
+                        </button>
+                        @*Add nav items here*@
+                        <a class="navbar-brand" asp-action="Index" asp-controller="HJKSAHadwadw">Dashboard</a>
+
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#" onclick="getupdate()" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-sync"></i>
+                                    <p>Update All</p>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="removeBedge()">
+                                    <i id="badge" class="fas fa-bell "></i>
+
+                                    <p>Notifications</p>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu" id="notices"></ul>
+                            </li>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li>
+                                    <form asp-area="" id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" class="logoutform">
+                                        <a class="logout" href="javascript:document.getElementById('logoutForm').submit()">
+                                            <i class="fas fa-sign-out-alt"></i>Log off
+                                        </a>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+
+                                <li><a class="nav-link text-dark" id="loginLink" asp-controller="Account" asp-action="Login"><i class="fas fa-sign-in-alt"></i>Log in</a></li>
+
+
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+
+
+            <div class="content">
+                @Html.Partial("_BoxStats")
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="HowTo">How To</a>
+                            </li>
+
+
+                            <li>
+                                &copy; 2019 - GA
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            //deferred onload
+            getupdate();
+            notificationUpdate();
+
+        }, 500);
+    </script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+<script>
+
+
+    function getupdate() {
+
+        connection.invoke("GetUpdate").catch(function (err) {
+            return console.error(err.toString());
+        });
+        //event.preventDefault();
+    }
+
+    function notificationUpdate() {
+
+        connection.invoke("NotificationUpdate").catch(function (err) {
+            return console.error(err.toString());
+        });
+        //event.preventDefault();
+    }
+
+
+</script>
+<!--   Core JS Files   -->
+<script src="~/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="~/assets/js/bootstrap-checkbox-radio.js"></script>
+<!--  Charts Plugin -->
+<script src="~/assets/js/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="~/assets/js/bootstrap-notify.js"></script>
+<script src="~/js/site.js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script src="~/assets/js/paper-dashboard.js"></script>
+
+<script src="~/js/notifyjs.js"></script>
+
+
+</html>

@@ -1,0 +1,48 @@
+﻿@model GA.Models.ItemLog
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="header">
+    <h4 class="title">Create</h4>
+    <p class="category">Item Logs</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="dateTime" class="control-label"></label>
+                        <input asp-for="dateTime" class="form-control" />
+                        <span asp-validation-for="dateTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Message" class="control-label"></label>
+                        <input asp-for="Message" class="form-control" />
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Basic">
+                            <input type="submit" value="Create" class="btn btn-info" />
+                            <a class="btn btn-info" asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+
+
+    </div>
+</div>

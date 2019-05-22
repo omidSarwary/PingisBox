@@ -1,0 +1,14 @@
+﻿
+@model List<Notifications>
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="#">@item.Message</a>
+        <span class="NotiTime">@item.Time.ToString("dddd, dd MMMM, HH:MM")</span>
+    </li>
+    <hr>
+}
+
+
+<li><a asp-action="Index" asp-controller="Notifications">Show All Notifications</a></li>

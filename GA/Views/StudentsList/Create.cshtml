@@ -1,0 +1,94 @@
+﻿@model GA.Models.Students
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="header">
+    <h4 class="title">Create</h4>
+    <p class="category">User</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="email" class="control-label"></label>
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullName" class="control-label"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="code" class="control-label"></label>
+                        <input asp-for="code" class="form-control" />
+                        <span asp-validation-for="code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RFID" class="control-label"></label>
+                        <input asp-for="RFID" class="form-control" />
+                        <span asp-validation-for="RFID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsBorrowed" /> @Html.DisplayNameFor(model => model.IsBorrowed)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BorrowedItem" class="control-label"></label>
+                        <input asp-for="BorrowedItem" class="form-control" />
+                        <span asp-validation-for="BorrowedItem" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BorrowedItem1" class="control-label"></label>
+                        <input asp-for="BorrowedItem1" class="form-control" />
+                        <span asp-validation-for="BorrowedItem1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BorrowedTime" class="control-label"></label>
+                        <input asp-for="BorrowedTime" class="form-control" />
+                        <span asp-validation-for="BorrowedTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="HandedBack" /> @Html.DisplayNameFor(model => model.HandedBack)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsOverTime" /> @Html.DisplayNameFor(model => model.IsOverTime)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Basic">
+                            <input type="submit" value="Create" class="btn btn-info" />
+                            <a class="btn btn-info" asp-action="Index">Back to List</a>                           
+                        </div>
+                       
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+
+    </div>
+</div>

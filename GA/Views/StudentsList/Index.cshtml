@@ -1,0 +1,106 @@
+﻿@model PaginatedList<GA.Models.Students>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="header">
+    <h4 class="title">All Users</h4>
+    <p class="category">Here You can see all Users</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by name: <input class="form-group" id="input" placeholder="Search" type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                    @*<input type="submit" value="" class="btn btn-default " />*@
+                    <button type="submit" class="btn btn-default "><i class="fas fa-search"></i></button>
+                    <a class="btn btn-primery" asp-action="Index">Back to Full List</a>
+                    <a class="btn btn-info float-right" asp-action="Create">Create New</a>
+                </p>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"><i class="fas fa-sort"></i> Email</a>
+
+                    </th>
+
+                    <th>
+                        User Name
+                    </th>
+
+                    <th>
+                        RFID
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["ItemSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"><i class="fas fa-sort"></i> Borrowed Any Item</a>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RFID)
+                        </td>
+                        <td>
+                            @if (item.IsBorrowed)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic">
+                                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>
+
+

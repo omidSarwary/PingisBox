@@ -1,0 +1,61 @@
+﻿@model GA.Models.Item
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="header">
+    <h4 class="title">Delete</h4>
+    <p class="category">Rackets</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+
+
+ 
+
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.RFID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RFID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsInBox)
+                </dt>
+                <dd>
+                    @if (Model.IsInBox)
+                    {
+                        <span>Available</span>
+                    }
+                    else
+                    {
+                        <span>Not Available</span>
+                    }
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentId)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <div class="btn-group" role="group" aria-label="Basic">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a class="btn btn-info" asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

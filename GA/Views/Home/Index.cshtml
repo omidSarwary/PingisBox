@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Registration";
+}
+@model Students
+
+
+
+<div class="row">
+    <div class="col">
+        <div class="card" id="card">
+
+            <div class="header">
+                <h4 class="title">Registrera Ny Deltagare</h4>
+            </div>
+            <div class="content">
+
+
+                <div class="text-center">
+                    <h1 class="display-4">Welcome</h1>
+                    <p class="title">Please provide your school mail and click on submit to get a starting code and regester yourself as a new user</p>
+                    <div class="formContent">
+                        <form asp-action="Index" method="post" role="form">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="text-danger" id="as">@ViewBag.message</div>
+
+                            <div class="text-danger"></div>
+
+                            <div class="form-group">
+                                <input asp-for="email" type="email" class="form-control" id="Email1" aria-describedby="emailHelp" placeholder="namn.efternamn@gtg.se">
+                                <small id="emailHelp" class="form-text text-muted">Please only use school mail</small>
+                            </div>
+                            <button type="submit" class="btn btn-primery">Get Activation Code</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+

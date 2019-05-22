@@ -1,0 +1,44 @@
+﻿@model GA.Models.StudentLog
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="header">
+    <h4 class="title">Details</h4>
+    <p class="category">Student Log</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+   
+
+        <div>
+         
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.dateTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.dateTime)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Message)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Message)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <div class="btn-group" role="group" aria-label="Basic">
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <a class="btn btn-info" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+
+    </div>
+</div>

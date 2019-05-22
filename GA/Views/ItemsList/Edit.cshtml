@@ -1,0 +1,58 @@
+﻿@model GA.Models.Item
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="header">
+    <h4 class="title">Edit</h4>
+    <p class="category">Rackets</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="RFID" class="control-label"></label>
+                        <input asp-for="RFID" class="form-control" />
+                        <span asp-validation-for="RFID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsInBox" /> @Html.DisplayNameFor(model => model.IsInBox)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudentBorrowed" class="control-label"></label>
+                        <input asp-for="StudentBorrowed" class="form-control" />
+                        <span asp-validation-for="StudentBorrowed" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="Basic">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                            <a class="btn btn-info" asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+     
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+
+
+    </div>
+</div>

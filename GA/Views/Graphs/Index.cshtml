@@ -1,0 +1,102 @@
+﻿@model IEnumerable<GA.Models.ItemCount>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="header">
+    <h4 class="title">Usage Statistics</h4>
+    <p class="category">Here You can see Usage Statistics</p>
+
+</div>
+<div class="content table-responsive table-full-width">
+    
+    <div class="content">
+        <h4 class="title" id="specTitle"></h4>
+        <div class="btn-group float-right" role="group" aria-label="Basic">
+            <a class="btn btn-info" onclick="makeChart(7)">Week</a>
+            <a class="btn btn-info" onclick="makeChart(31)">Month</a>
+            <a class="btn btn-info" onclick="makeChart(0)">All</a>
+        </div>
+        <div id="chart1"></div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        function makeChart(dd) {
+            if (dd === 7)
+                document.getElementById("specTitle").innerHTML = "One weeks statistics";
+            if (dd === 31)
+                document.getElementById("specTitle").innerHTML = "One months statistics";
+            if (dd === 0)
+                document.getElementById("specTitle").innerHTML = "All Times statistics";
+
+            var data01 = [['Time', 'TimesBorrowed']];
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart(dd));
+
+            function drawChart(dd) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'Graphs/JsonData/' + dd,
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: {}
+                }).done(function (result) {
+                    loadData(JSON.parse(result));
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    var result = "[{\"Id\":2,\"TimesBorrowed\":0,\"Time\":\"21-04-20\"},{\"Id\":3,\"TimesBorrowed\":13,\"Time\":\"21-04-19\"},{\"Id\":4,\"TimesBorrowed\":1,\"Time\":\"22-04-19\"},{\"Id\":5,\"TimesBorrowed\":3,\"Time\":\"23-04-19\"},{\"Id\":6,\"TimesBorrowed\":0,\"Time\":\"21-04-19\"}]";
+                    loadData(JSON.parse(result));
+                });
+
+                function loadData(result) {
+                    $.each(result, function (data, value) {
+                        data01.push([value.Time, value.TimesBorrowed]);
+                    })
+                    console.log(result);
+                    var data = new google.visualization.arrayToDataTable(data01);
+                    var options = {
+                        title: "Times Borrowed",
+                        width: 'auto',
+                        height: 'auto',
+                        legend: { position: 'none' },
+                        vAxis: { viewWindow: { min: 0, max: 'auto' }, baselineColor: 'transparent' },
+                        hAxis: { viewWindow: { min: 0, max: 'auto' }, baselineColor: 'transparent' },
+                        colors: ['#7AC29A', 'red', 'green', 'yellow', 'gray'],
+
+                        chartArea: {
+                            height: '80%', width: '90%', left: 100,
+                            backgroundColor: { stroke: "gray", strokeWidth: 1 }
+
+                        },
+                        pointSize: 10
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('chart1'));
+                    chart.draw(data, options);
+                }
+
+            }
+        }
+    </script>
+
+    <script>
+        setTimeout(function () {
+            //deferred onload
+            makeChart(0);
+
+
+        }, 500);
+        makeChart(0);
+    </script>
+}

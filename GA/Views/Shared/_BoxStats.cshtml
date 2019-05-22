@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+@using  GA.Models;
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-warning text-center">
+                                <i id="doorIcon" class=""></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Box Door</p>
+                                <span id="BoxStatus"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr>
+                        <div class="stats">
+                            <i class="fas fa-user"></i><span id="BoxUser"></span>
+                        </div>
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-reload"></i> <span id="BoxTime"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-success text-center">
+                                <i id="item1Icn" class=""></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Rack 1</p>
+                                <span id="item1Stats"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr>
+                        <div class="stats">
+                            <i class="fas fa-user"></i><span id="item1User"></span>
+                        </div>
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-reload"></i> <span id="item1Time"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-success text-center">
+                                <i id="item2Icn" class=""></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Rack 2</p>
+                                <span id="item2Stats"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr>
+                        <div class="stats">
+                            <i class="fas fa-user"></i><span id="item2User"></span>
+                        </div>
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-reload"></i> <span id="item2Time"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+
+
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-danger text-center">
+                                <i class="ti-pulse"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Rackets Borrowed Today</p>
+                                <span id="TimesBorrowed"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-timer"></i> Today <span id="day"></span>
+                        </div>
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-reload"></i> <span id="countUpdate"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

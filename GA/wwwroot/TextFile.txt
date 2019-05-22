@@ -1,0 +1,134 @@
+﻿Registration:
+
+S: create user with the code,
+A: send code to S and get true or false if the user exists,
+A: if fasle do nothing,
+A: if true open the door and send the RFID and the Code to server,
+S: find the userByCOde and Register the RFID under the name,
+
+
+Open the door:
+
+A: get RFID and send to server get true or false depending on if the user with the given RFID exists,
+S: GetUserByRFID and return true or false if the user exists or not.
+A: if true Open the door and and send RFID and the time user opend the door,
+S: save the time that user opend the door;
+A: see if user gets a racket,
+A: if user gets a racket send the RFID and RAcket and boolBorrowed to server,
+S: GetUserByRFID and register that user borrowd the racket id.
+S: server send email to user that he borrowd a racket and have to hand back after time,
+S after time see if the user handed back is true and the user handed back the racket,
+S: if yes end the task,
+S: if no Overtime = true and send email to User that he have to hand in and an email to admin that a user is overtime,
+S: see if the user hands back,
+
+Close the door:
+A: if yes send to S user closed the door and borowd item,
+A: If door open more then time beep to close the door,
+A: if not send to server that user didnot closed the door,
+A: if closed send to S closed and borrowed Items,
+
+hand in:
+A: if handed in send the RFID and Item ID to server and say it is handed back
+S: end task and remove borrowed item from user,
+S: mark item as in box,
+
+
+Summery S:
+
+UserRepository:
+
+GetUserByCOde,
+GetUserByRFID,
+GetAllUsers,
+
+User:
+userLog
+
+Box:
+IsDoorOPen,
+userOpenddoor,
+boxlog
+
+
+Item:
+id,
+RFID,
+IsInBox,
+UserIdHasIt
+
+ItemRepository:
+GetItemByRFID,
+
+
+Controller:
+[HttpGet]:
+Get user Code and return true or false if exists,
+Get User RFID and return true or false if user exists
+
+[HttpPost]:
+Get RFID and code,
+{
+ Getuserbycode 
+and register rfid to user, 
+and update the user log to user registered with rfid
+}
+get rfid and time and open
+
+{
+
+find user by rfid 
+and update users log to user opend the door at time, 
+and update boxLog to user opend door at time, 
+update isboxopen true useropenddoor= user
+
+}
+get rfid and door close and borrowed items or handed back item id and time, 
+{
+	if borrowed
+	{
+	find user by rfid
+	register borrowed item and borrowed time
+	
+	update UserLog to user closed the door at time and borrowed items
+	update box log to user closed the door and borrowed item at time
+	
+	find item by id 
+	register is in the box false
+	register user who borrowed the item
+
+	send mail to user.mail that he borrowed item at time and should hand in at time
+	call the timer and send user and time
+	}
+
+
+	if handed back 	{
+
+	find user by rfid
+	register borrowed item empty
+	
+	update UserLog to user closed the door at time and handed back items
+	update box log to user closed the door and handed back item at time
+	
+	find item by id 
+	register is in the box true
+	remove user who borrowed the item
+
+	send mail to user.mail that he handed in item at time 
+	call the timer end it
+	
+
+	}
+
+
+}
+
+timer get user and time {
+	and after time see if user handed back
+	if not overtime true send mail to user and admin that user did not handed in the item
+	continue checking
+	if after another time note handed in again send mail
+	if yes register handed in and end the task
+
+
+}				

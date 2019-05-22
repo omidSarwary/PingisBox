@@ -1,0 +1,59 @@
+﻿@model GA.Models.Item
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="header">
+    <h4 class="title">Details</h4>
+    <p class="category">Rackets</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+ 
+
+        <div>
+          
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.RFID)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RFID)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsInBox)
+                </dt>
+                <dd>
+                    @if (Model.IsInBox)
+                    {
+                        <span>Available</span>
+                    }
+                    else
+                    {
+                        <span>Not Available</span>
+                    }
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentBorrowed)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentBorrowed)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <div class="btn-group" role="group" aria-label="Basic">
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <a class="btn btn-info" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>

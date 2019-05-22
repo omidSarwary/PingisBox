@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GA.Models.Item>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="header">
+    <h4 class="title">Rackets</h4>
+    <p class="category">Here You can see all Rackets</p>
+</div>
+<div class="content table-responsive table-full-width">
+    <div class="content">
+        <p>
+            <a class="btn btn-info" asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RFID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsInBox)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentBorrowed)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RFID)
+                        </td>
+                        <td>
+                         
+                            @if (item.IsInBox)
+                            {
+                            <span>Available</span>
+                            }
+                            else
+                            {
+                            <span>Not Available</span>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentBorrowed)
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic">
+                               <a class="btn btn-info"  asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                               <a class="btn btn-info"  asp-action="Details" asp-route-id="@item.Id">Details</a>
+                               <a  class="btn btn-danger"  asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
